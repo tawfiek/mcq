@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
 
 const Exams = new mongoose.Schema ({
     userName: {
@@ -9,9 +9,10 @@ const Exams = new mongoose.Schema ({
         type: String,
         required:true,
     },
-    Questions: {
+    questions: {
         type: [Schema.Types.ObjectId],
-        required: true
+        required: true,
+        ref: 'questions'
     },
     score: {
         type: Number,

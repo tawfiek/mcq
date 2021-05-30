@@ -10,10 +10,12 @@ const Questions = new mongoose.Schema ({
         required:true,
         minlength: 2,
         maxlength: 4,
+        ref: "answers",
     },
     correctAnswerID: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: "answers",
     },
 });
 
