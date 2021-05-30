@@ -1,4 +1,5 @@
 import * as createError from 'http-errors';
+import examRoute from './exam';
 
 
 /**
@@ -10,6 +11,9 @@ import * as createError from 'http-errors';
     app.get('/ping', (req, res, next) => {
       return res.status(200).json({ message: 'Success' });
     });
+
+
+    app.use('/exam', examRoute);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
