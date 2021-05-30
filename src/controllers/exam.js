@@ -15,7 +15,7 @@ export async function startNewExam (req, res, next) {
     try {
 
         const body = req.body;
-        const {isValid, errors} = _validateUserInput(req.body);
+        const {isValid, errors} = _validateUserNewExamInput(req.body);
 
         if (!isValid) return res.status(422).json({message: 'Check your input ', errors});
 
@@ -36,13 +36,56 @@ export async function startNewExam (req, res, next) {
 }
 
 /**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
+export async function submitExam (req, res, next) {
+    try {
+        
+        const body = req.body;
+        const {isValid, errors} = _validateUserSubmitExamInput(req.body);
+
+        if (!isValid) return res.status(422).json({message: 'Check your input ', errors});
+
+        const exam = await Exam.updateOne({_id: body.examID}, {score: body.score});
+
+        return res.json({message: 'success'});
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
+}
+
+/**
+ * Validate suer input in the submit exam endpoint
+ * @param {Object} body
+ * @param {String} [body.examID] the Exam ID
+ * @param {Number} [body.score] The score on this exam
+ */
+function _validateUserSubmitExamInput (body) {
+    const errors = [];
+    if (! isObject(body)) {
+        errors.push("Not a valid request !");
+        return {isValid: false, errors}
+    };
+
+    if (!body.examID || typeof body.examID !== 'string') errors.push("Exam ID is not valid !");
+    if (typeof +body.score !== 'number' || Number.isNaN(+body.score)) errors.push("Score is not valid !");
+
+    return {isValid: errors.length < 1, errors};
+
+}
+
+/**
  * Validate the user input in the request body
  * @param {Object} body
  * @param {String} [body.userName] This should be a valid string
  * @param {String} [body.email] This should a valid email
  * @return {isValid: Boolean, errors: Array<String>} the validation object
  */
-function _validateUserInput (body) {
+function _validateUserNewExamInput (body) {
     const errors = [];
     if (! isObject(body)) {
         errors.push("Not a valid request !");
