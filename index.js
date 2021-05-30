@@ -5,6 +5,7 @@ import initRoutes from './src/routes';
 import cors from 'cors';
 import helmet from 'helmet';
 import http from 'http';
+import dbConnectionInit from './src/models/index'
 
 const app = express();
 
@@ -23,7 +24,10 @@ const server = http.createServer(app);
 // Get the port from environment variables
 const PORT = process.env['NODE_PORT'] ? process.env['NODE_PORT'] : 3000;
 
+// Stablish a DB Connection first then start to listen
 
-server.listen(PORT, () => {
-  console.log(`Server is listening on PORT: ${PORT}`);
+dbConnectionInit().then(() => {
+  server.listen(PORT, () => {
+    console.log(`Server is listening on PORT: ${PORT}`);
+  });
 });
