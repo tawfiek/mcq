@@ -3,7 +3,7 @@ import { startNewExam, submitExam } from '../controllers/exam';
 
 const examRoute = Router();
 
-examRoute.get('/new', startNewExam);
-examRoute.get('/submit', submitExam);
+examRoute.post('/new', startNewExam);
+examRoute.post('/submit', submitExam);
 
 export default examRoute;
