@@ -28,7 +28,7 @@ export function validateEmail(mail) {
 export function getRandomNumbersInRange (length, range) {
   const {min, max} = range;
   const arr = [];
-  while(arr.length <= length){
+  while(arr.length < length){
     const num = Math.floor(Math.random() * (max - min) + min);
     if(arr.indexOf(num) === -1) arr.push(num);
   }
