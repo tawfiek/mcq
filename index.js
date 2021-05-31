@@ -22,7 +22,7 @@ initRoutes(app);
 // Make a new server
 const server = http.createServer(app);
 // Get the port from environment variables
-const PORT = process.env['NODE_PORT'] ? process.env['NODE_PORT'] : 3000;
+const PORT = process.env['NODE_PORT'] ? process.env['NODE_PORT'] : 3001;
 
 // Stablish a DB Connection first then start to listen
 
